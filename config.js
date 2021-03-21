@@ -4,9 +4,9 @@ const config = {
     database:{
         DATABASE:"app-management",
         USERNAME:"root",
-        PASSWORD:"Aa262714",
+        PASSWORD:"Aa1518474913",
         PORT: '3306',
-        HOST: '127.0.0.1'
+        HOST: 'localhost'
     }
 }
 

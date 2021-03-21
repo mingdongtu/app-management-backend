@@ -18,6 +18,7 @@
     "koa-webpack-hot-middleware": "^1.0.3",
     "koa2-cors": "^2.0.6",
     "mysql2": "^2.2.5",
+    "qs": "^6.10.0",
     "webpack": "^3.10.0"
   }
 }
