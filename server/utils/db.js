@@ -9,7 +9,7 @@ const mysqlPool = mysql.createPool({
      password:dataBaseConfig.PASSWORD,
      database:dataBaseConfig.DATABASE
 })
-let query = (sql,values)=>{
+const query = (sql,values)=>{
        return new Promise((resolve,reject)=>{
               mysqlPool.getConnection((err,connection)=>{
                 // console.log('查询数据库',err,connection)
