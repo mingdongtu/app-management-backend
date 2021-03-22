@@ -12,18 +12,15 @@ module.exports = {
                 ctx.body ={
                   code:0,
                   msg:'不存在这个用户',
-                  data:null
+                  data:{}
              }
-
            }else{
             ctx.body ={
               code:1,
               msg:'登录成功',
               data:result
          }
-           }
-           
-          //  ctx.body =result  
+           }  
            
       }
 }
