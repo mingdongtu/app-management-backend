@@ -9,6 +9,10 @@ const info = {
       async getAppList(data){
              const appList = await infoModel.getAppList(data)
              return appList
+      },
+      async getAppDetail(data){
+            const appDetail = await infoModel
+            return appDetail
       }
 
 }

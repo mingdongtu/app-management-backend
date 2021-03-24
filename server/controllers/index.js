@@ -15,6 +15,12 @@ module.exports = {
          const params = tools.parseUrl(data);
          const result = await infoService.getAppList(params)
          ctx.body = tools.dealResult(result,ctx)
+      },
+      async getAppDetail(ctx){
+          const data = ctx.request.url;
+          const params = tools.parseUrl(data);
+          const result = await infoService.getAppDetail(params);
+          ctx.body = tools.dealResult(result,ctx)
       }
 
 }

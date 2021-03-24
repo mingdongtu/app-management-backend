@@ -1,5 +1,6 @@
-const dbUtils = require('./../utils/db')
 
+// 查询数据库
+const dbUtils = require('./../utils/db')
 const info = {
      async getLogin(data){
         console.log('调用models层',data)
@@ -12,6 +13,11 @@ const info = {
         const sql = `SELECT * FROM appInfo` 
         const result =   await dbUtils.query(sql);
         return result
+     },
+     async getAppDetail(data){
+          const sql = `SELECT * FROM appDetail`
+          const result = await dbUtils.query(sql)
+          return result
      }
 }
 
