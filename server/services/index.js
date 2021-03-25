@@ -11,7 +11,7 @@ const info = {
              return appList
       },
       async getAppDetail(data){
-            const appDetail = await infoModel
+            const appDetail = await infoModel.getAppDetail(data)
             return appDetail
       }
 
