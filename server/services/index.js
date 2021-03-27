@@ -13,6 +13,11 @@ const info = {
       async getAppDetail(data){
             const appDetail = await infoModel.getAppDetail(data)
             return appDetail
+      },
+      async handleUpload(ctx){
+       
+           const fileName = await infoModel.handleUpload(ctx)
+           return fileName;
       }
 
 }

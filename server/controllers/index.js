@@ -20,11 +20,14 @@ module.exports = {
         
           const data = ctx.request.url;
           const params = tools.parseUrl(data);
-          console.log(params)
           const result = await infoService.getAppDetail(params);
-    
-
           ctx.body = tools.dealResult(result,ctx)
+      },
+      async handleUpload(ctx){
+           const data = ctx.request.url;
+           const result = await infoService.handleUpload(ctx)
+           ctx.body = result;
+           
       }
 
 }

@@ -10,7 +10,6 @@ const mysqlPool = mysql.createPool({
      database:dataBaseConfig.DATABASE
 })
 const query = (sql,values)=>{
-  console.log("返回数据")
        return new Promise((resolve,reject)=>{
               mysqlPool.getConnection((err,connection)=>{
                 // console.log('查询数据库',err,connection)

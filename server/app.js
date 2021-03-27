@@ -6,6 +6,7 @@ const app = new Koa();
 const config = require('../config')
 const routers = require('./routers/index')
 const cors = require('koa2-cors');
+const koaBody = require("koa-body")
 // app.use(async (ctx)=>{
 //      ctx.body = "欢迎来到搜电App包管理平台"
 // })
@@ -39,6 +40,28 @@ const cors = require('koa2-cors');
 // })
 // app.use(wdm)
 // app.use(webpackHotMiddleware(compiler))
+app
+.use(koaBody({
+  multipart: true, // 允许上传或下载文件
+  formidable: {
+    maxFileSize: 20000*1024*1024 // 限制上传或下载的文件的大小
+  }
+}))
+.use(cors({
+  origin: function(ctx) {
+    // 可以放行/限制某些域名请求的跨域
+    // if (ctx.url === '/apm/upload') {
+    //   return false;
+    // }
+    return '*';
+  },
+  exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+  maxAge: 5,
+  credentials: true,
+  allowMethods: ['GET', 'POST', 'DELETE'],
+  allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
+}))
+
 app.use(bodyParser())
 app.use(routers.routes()).use(routers.allowedMethods())
 app.listen(config.port,()=>{

@@ -1,6 +1,7 @@
 
 // 查询数据库
 const dbUtils = require('./../utils/db')
+const fs = require('fs')
 const info = {
      async getLogin(data){
         console.log('调用models层',data)
@@ -27,6 +28,26 @@ const info = {
               detail:infoDetail[0]||{},
               list:result
           }
+     },
+     async handleUpload(ctx){
+          // 处理上传文件
+         return new Promise((resolve,reject)=>{
+            //  resolve(100)
+           if(ctx.request.body.file){
+            console.log('来到了后端🔥🔥1', JSON.parse(ctx.request.body.file),typeof ctx.request.body.file)
+           }
+              try{
+                 const file = ctx.request.files.file;
+                 const reader = fs.createReadStream(file.path);
+                 const upStream = fs.createWriteStream(`./../public/${file.name}`);
+                 reader.pipe(upStream);
+                 const result = {type:ctx.request.body.type};
+                 resolve(result)
+              }catch(err){
+                 console.log("🐯🐯生威")
+                  reject(err)
+              }
+         })
      }
 }
 
