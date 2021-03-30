@@ -1,7 +1,10 @@
 
 // 查询数据库
 const dbUtils = require('./../utils/db')
+const tools = require("./../utils/tool")
 const fs = require('fs')
+const path = require('path')
+const AppInfoParserApk = require("app-info-parser");
 const info = {
      async getLogin(data){
         console.log('调用models层',data)
@@ -31,23 +34,48 @@ const info = {
      },
      async handleUpload(ctx){
           // 处理上传文件
-         return new Promise((resolve,reject)=>{
-            //  resolve(100)
-           if(ctx.request.body.file){
-            console.log('来到了后端🔥🔥1', JSON.parse(ctx.request.body.file),typeof ctx.request.body.file)
-           }
-              try{
-                 const file = ctx.request.files.file;
-                 const reader = fs.createReadStream(file.path);
-                 const upStream = fs.createWriteStream(`./../public/${file.name}`);
-                 reader.pipe(upStream);
-                 const result = {type:ctx.request.body.type};
-                 resolve(result)
-              }catch(err){
-                 console.log("🐯🐯生威")
-                  reject(err)
-              }
-         })
+         const getsql = ()=>{
+         return  new Promise((resolve,reject)=>{
+            try{
+              
+               const file = ctx.request.files.file;
+               const reader = fs.createReadStream(file.path);
+               const filePath = path.join(__dirname,`./../public/${file.name}`)
+               const upStream = fs.createWriteStream(filePath);
+               reader.pipe(upStream);
+              //  解析app包update app_detail数据库
+              let sql ;
+              
+              reader.on("end",()=>{
+                console.log("获取文件信息")
+                const parser = new AppInfoParserApk(filePath)
+                // 获取文件大小
+                let package_volume ;
+                fs.stat(filePath,(err,stats)=>{
+                  
+                      !err && (package_volume = (stats.size/1024*1024)).toFixed(1)
+                })
+                parser.parse().then(res=>{
+                  const {versionName:edition,package:bundle_id} = res
+                  const data = {edition,package_volume,bundle_id}
+                  // 插入数据到表中
+                  sql = tools.insertAppDetail(data)
+                  resolve(sql)
+                }) 
+              })
+              
+              
+            }catch(err){
+                reject(err)
+            }   
+       })
+         }
+      
+      const sql = await getsql();
+      console.log('sql语句',sql)
+      const result = await dbUtils.query(sql)
+      return result
+
      }
 }
 

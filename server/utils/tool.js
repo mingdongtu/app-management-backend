@@ -21,8 +21,14 @@ function dealResult(result,ctx){
    }
   return res
 }
+function insertAppDetail(data){
+  const {edition,package_volume,bundle_id} = data
+  const sql = `INSERT INTO app_detail(edition,package_volume,bundle_id) VALUES(${edition},${package_volume},${bundle_id})`
+  return sql
+}
 
 module.exports = {
      parseUrl,
-     dealResult
+     dealResult,
+     insertAppDetail
 }
