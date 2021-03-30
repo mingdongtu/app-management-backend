@@ -7,7 +7,11 @@ module.exports = {
       async getLogin(ctx){
         const data = ctx.request.url;
         const params = tools.parseUrl(data)
+        const {username} = params
         const result =await infoService.getUserData(params)
+        if(result.length===1){
+             ctx.session.user = username
+        }
         ctx.body = tools.dealResult(result,ctx)
       },
       async getAppList(ctx){

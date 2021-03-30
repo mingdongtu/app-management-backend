@@ -13,7 +13,7 @@ function parseUrl(url){
 }
 function dealResult(result,ctx){
   let res ;
-  if(result&&result.length&&result.length<1){
+  if(result.length<1){
     //  没有这个用户
     res ={code:0,msg:'不存在这个用户',data:{} }
    }else{
