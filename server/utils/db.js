@@ -16,6 +16,7 @@ const query = (sql,values)=>{
                   if(err){
                       resolve(err)
                   }else{
+                    
                       //  查询数据库
                       connection.query(sql,values,(err,rows)=>{
                            if(err){

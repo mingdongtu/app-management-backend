@@ -16,8 +16,8 @@ const info = {
       },
       async handleUpload(ctx){
        
-           const fileName = await infoModel.handleUpload(ctx)
-           return fileName;
+           const result = await infoModel.handleUpload(ctx)
+           return result;
       }
 
 }

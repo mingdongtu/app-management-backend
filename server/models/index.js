@@ -52,11 +52,12 @@ const info = {
                 // 获取文件大小
                 let package_volume ;
                 fs.stat(filePath,(err,stats)=>{
-                  
-                      !err && (package_volume = (stats.size/1024*1024)).toFixed(1)
+                    console.log('app大小',parseInt(stats.size/(1024*1024)*100)/100)
+                      !err && (package_volume = parseInt(stats.size/(1024*1024)*100)/100)
                 })
                 parser.parse().then(res=>{
                   const {versionName:edition,package:bundle_id} = res
+                  console.log('数据类型',typeof edition,typeof bundle_id,typeof package_volume)
                   const data = {edition,package_volume,bundle_id}
                   // 插入数据到表中
                   sql = tools.insertAppDetail(data)

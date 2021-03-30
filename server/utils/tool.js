@@ -23,7 +23,8 @@ function dealResult(result,ctx){
 }
 function insertAppDetail(data){
   const {edition,package_volume,bundle_id} = data
-  const sql = `INSERT INTO app_detail(edition,package_volume,bundle_id) VALUES(${edition},${package_volume},${bundle_id})`
+  const sql = `INSERT INTO app_detail(edition,package_volume,bundle_id) VALUES("${edition}",${package_volume},"${bundle_id}")`
+  // const sql = `INSERT INTO app_detail(edition,package_volume,bundle_id) VALUES(?,?,?)`
   return sql
 }
 
