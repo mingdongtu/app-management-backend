@@ -10,7 +10,8 @@ const info = {
         console.log('调用models层',data)
           const {username,password} = data
           const sql = `SELECT * FROM userInfo WHERE username ="${username}"  AND password = "${password}"`;
-          const  result = await dbUtils.query(sql)
+          const  result = await dbUtils.query(sql);
+          
           return result
      },
      async  getAppList(data){

@@ -8,14 +8,19 @@ const routers = require('./routers/index')
 const cors = require('koa2-cors');
 const koaBody = require("koa-body");
 const session = require('koa-session');
+const redisStore = require('koa-redis');
+const redis = require('redis');
+const client = redis.createClient(6379,"localhost")
 app.keys = ['this is my secret.thank you!']
-app.use(session({
-    key:'koa:session',
-    maxAge:3600000,
-    overwrite:true,
-    httpOnly:true,
-    signed:true
-},app))
+const sessionConfig = {
+  key:'koa:session',
+  maxAge:3600000,
+  overwrite:true,
+  httpOnly:true,
+  signed:true,
+  store:redisStore({client})
+}
+app.use(session(sessionConfig,app))
 
 app
 .use(koaBody({
@@ -44,4 +49,5 @@ app.use(routers.routes()).use(routers.allowedMethods())
 app.listen(config.port,()=>{
      console.log(`监听端口${JSON.stringify(config.port)}`)
 })
+
 
