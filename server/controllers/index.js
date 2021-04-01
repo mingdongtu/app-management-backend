@@ -3,30 +3,34 @@ const infoService = require('./../services/index')
 const qs = require('qs')
 const jwt = require("jsonwebtoken")
 const tools = require('./../utils/tool')
-const secret = 'this is secret';
+const secret = 'app_management_secret';
 module.exports = {
       async getLogin(ctx){
         const data = ctx.request.url;
         const params = tools.parseUrl(data)
-        const {username} = params
         let result =await infoService.getUserData(params)
         if(result.length===1){
-             ctx.session.user = username
-        }
-       
-        ctx.body = {
-             userInfo :tools.dealResult(result,ctx),
+            //  ctx.session.user = username
+             ctx.body = {
+             code:1,
+             msg:'登录成功',
              token:jwt.sign({
-                  data:result[0].username,
-                  exp:Math.floor(Date.now()/100)+60*60
+              data:result[0].username,
+              exp:Math.floor(Date.now()/1000)+6})
+              
              },
              secret
-             )
+        }else{
+           ctx.body = {
+                code:0,
+                msg:"登录失败"
+           }
         }
+      
+       
         
       },
       async getAppList(ctx){
-        console.log("看下session",ctx.session)
          const data = ctx.request.url;
          const params = tools.parseUrl(data);
          const result = await infoService.getAppList(params)
