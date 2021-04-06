@@ -7,11 +7,11 @@ const path = require('path')
 const AppInfoParserApk = require("app-info-parser");
 const info = {
      async getLogin(data){
-        console.log('调用models层',data)
+        
           const {username,password} = data
           const sql = `SELECT * FROM userInfo WHERE username ="${username}"  AND password = "${password}"`;
           const  result = await dbUtils.query(sql);
-          
+          console.log('返回结果',data,username,password)
           return result
      },
      async  getAppList(data){

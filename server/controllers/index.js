@@ -3,23 +3,28 @@ const infoService = require('./../services/index')
 const qs = require('qs')
 const jwt = require("jsonwebtoken")
 const tools = require('./../utils/tool')
-const secret = 'app_management_secret';
+require('dotenv').config()
+
 module.exports = {
       async getLogin(ctx){
-        const data = ctx.request.url;
-        const params = tools.parseUrl(data)
+        console.log('请求参数',ctx.request.body)
+        const params = ctx.request.body;
         let result =await infoService.getUserData(params)
         if(result.length===1){
             //  ctx.session.user = username
+            console.log('环境变量JWT_KEY',process.env.JWT_KEY)
              ctx.body = {
              code:1,
              msg:'登录成功',
-             token:jwt.sign({
+             token:jwt.sign(
+               {
               data:result[0].username,
-              exp:Math.floor(Date.now()/1000)+6})
-              
-             },
-             secret
+              exp:Math.floor(Date.now()/1000)+60*60
+              },
+              process.env.JWT_KEY)
+            }
+            
+             
         }else{
            ctx.body = {
                 code:0,

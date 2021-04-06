@@ -9,7 +9,8 @@ const cors = require('koa2-cors');
 const koaBody = require("koa-body");
 const jwt = require('jsonwebtoken');
 const koajwt = require('koa-jwt');
-const secret = 'app_management_secret'
+const dotenv = require('dotenv');
+// app.use(dotenv).config()
 // const session = require('koa-session');
 // const redisStore = require('koa-redis');
 // const redis = require('redis');
@@ -27,7 +28,7 @@ const secret = 'app_management_secret'
 //规则之外的请求接口都需要进行需要进行token验证
 app.use(
   koajwt({
-    secret
+    secret:process.env.JWT_KEY
   }).unless({
        path:[/\/login$/]
   })
