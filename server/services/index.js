@@ -6,6 +6,7 @@ const info = {
              const userData = await infoModel.getLogin(data)
              return userData
       },
+     
       async getAppList(data){
              const appList = await infoModel.getAppList(data)
              return appList

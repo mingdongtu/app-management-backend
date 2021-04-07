@@ -14,6 +14,7 @@ const info = {
           console.log('返回结果',data,username,password)
           return result
      },
+    
      async  getAppList(data){
         const sql = `SELECT * FROM app_info` 
         const result =   await dbUtils.query(sql);
@@ -23,11 +24,12 @@ const info = {
      async getAppDetail(data){
           const sql = `SELECT * FROM app_detail`
           const a = '1';
+          console.log('app_detail数据')
           const infoSql = `SELECT id,application_name,bundle_id,application_type,application_logo FROM app_info WHERE app_id = ${a}`;
           const result = await dbUtils.query(sql)
           // 从app_info表中查询
           const infoDetail = await dbUtils.query(infoSql);
-          console.log('app_detail数据',infoDetail)
+          
           return {
               detail:infoDetail[0]||{},
               list:result

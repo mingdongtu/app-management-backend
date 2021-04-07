@@ -31,10 +31,8 @@ module.exports = {
                 msg:"登录失败"
            }
         }
-      
-       
-        
       },
+      
       async getAppList(ctx){
          const data = ctx.request.url;
          const params = tools.parseUrl(data);
@@ -42,7 +40,7 @@ module.exports = {
          ctx.body = tools.dealResult(result,ctx)
       },
       async getAppDetail(ctx){
-        
+          console.log('control-getAppDetail')
           const data = ctx.request.url;
           const params = tools.parseUrl(data);
           const result = await infoService.getAppDetail(params);
