@@ -4,6 +4,7 @@ const dbUtils = require('./../utils/db')
 const tools = require("./../utils/tool")
 const fs = require('fs')
 const path = require('path')
+const send = require("koa-send");
 const AppInfoParserApk = require("app-info-parser");
 const info = {
      async getLogin(data){
@@ -18,7 +19,6 @@ const info = {
      async  getAppList(data){
         const sql = `SELECT * FROM app_info` 
         const result =   await dbUtils.query(sql);
-        console.log('app_info数据',result)
         return result
      },
      async getAppDetail(data){
@@ -60,7 +60,7 @@ const info = {
                 })
                 parser.parse().then(res=>{
                   const {versionName:edition,package:bundle_id} = res
-                  console.log('数据类型',typeof edition,typeof bundle_id,typeof package_volume)
+                  console.log('数据类型',edition,bundle_id)
                   const data = {edition,package_volume,bundle_id}
                   // 插入数据到表中
                   sql = tools.insertAppDetail(data)
@@ -80,7 +80,17 @@ const info = {
       const result = await dbUtils.query(sql)
       return result
 
-     }
+     },
+    //  async handleDownload(ctx){
+    //        //读取资源生成可下载链接
+    //        const filePath = '/apm/downLoad/app-release.apk'
+    //        ctx.attachment(filePath);
+    //        console.log('🐯🐯',filePath)
+    //        await send(ctx,filePath)
+           
+
+        
+    //  }
 }
 
 

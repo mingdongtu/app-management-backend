@@ -1,6 +1,6 @@
 //业务层代码
 const infoModel = require('./../models/index')
-
+const send = require("koa-send");
 const info = {
       async getUserData(data){
              const userData = await infoModel.getLogin(data)
@@ -19,6 +19,12 @@ const info = {
        
            const result = await infoModel.handleUpload(ctx)
            return result;
+      },
+      async handleDownload(ctx){
+        const fileName = 'app-release.apk'
+        ctx.attachment(fileName);
+        console.log('🐯🐯',__dirname+'/public')
+        await send(ctx,fileName,{root:__dirname+'/public'})
       }
 
 }

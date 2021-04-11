@@ -1,8 +1,10 @@
 //操作层
 const infoService = require('./../services/index')
-const qs = require('qs')
+const fs = require('fs')
+const path = require('path')
 const jwt = require("jsonwebtoken")
 const tools = require('./../utils/tool')
+const send = require("koa-send");
 require('dotenv').config()
 
 module.exports = {
@@ -51,6 +53,22 @@ module.exports = {
            const result = await infoService.handleUpload(ctx)
            ctx.body = result;
            
+      },
+      async handleDownload (ctx){
+         
+          const filePath = path.join(__dirname,`./../public/app-release.apk`)
+          console.log('🐯🐯',filePath)
+         const readStream = fs.createReadStream(filePath)
+         ctx.type = 'apk'
+         ctx.set('Content-disposition', 'attachment; filename=' +'app-release.apk')
+         ctx.body = readStream
+          
+          // ctx.set('Content-type', 'mimetype');
+          // ctx.attachment(filePath);
+          
+          // await send(ctx,filePath)
+
+          
       }
 
 }

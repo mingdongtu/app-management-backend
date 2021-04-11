@@ -8,8 +8,8 @@ const routers = require('./routers/index')
 const cors = require('koa2-cors');
 const koaBody = require("koa-body");
 const jwt = require('jsonwebtoken');
-const koajwt = require('koa-jwt');
-const dotenv = require('dotenv');
+const kojak = require('koa-jwt');
+// const dotenv = require('dotenv');
 // app.use(dotenv).config()
 // const session = require('koa-session');
 // const redisStore = require('koa-redis');
@@ -27,14 +27,16 @@ const dotenv = require('dotenv');
 // app.use(session(sessionConfig,app))
 //规则之外的请求接口都需要进行需要进行token验证
 app.use(
-  koajwt({
+  kojak({
     secret:process.env.JWT_KEY
   }).unless({
-       path:[/\/login$/]
+       path:[/\/login$/,/\/download$/]
   })
 )
 // token 验证的中间件
 app.use((ctx,next)=>{
+     
+    
      if(ctx.header && ctx.header.authorization){
           const parts = ctx.header.authorization.split(' ');
           if(parts.length===2){
