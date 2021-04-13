@@ -1,7 +1,7 @@
 
 // 查询数据库
-const dbUtils = require('./../utils/db')
-const tools = require("./../utils/tool")
+const dbUtils = require('../utils/db')
+const tools = require("../utils/tool")
 const fs = require('fs')
 const path = require('path')
 const send = require("koa-send");

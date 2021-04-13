@@ -1,9 +1,9 @@
 //操作层
-const infoService = require('./../services/index')
+const infoService = require('../services/index')
 const fs = require('fs')
 const path = require('path')
 const jwt = require("jsonwebtoken")
-const tools = require('./../utils/tool')
+const tools = require('../utils/tool')
 const send = require("koa-send");
 require('dotenv').config()
 
@@ -62,13 +62,7 @@ module.exports = {
          ctx.type = 'apk'
          ctx.set('Content-disposition', 'attachment; filename=' +'app-release.apk')
          ctx.body = readStream
-          
-          // ctx.set('Content-type', 'mimetype');
-          // ctx.attachment(filePath);
-          
-          // await send(ctx,filePath)
-
-          
+        
       }
 
 }

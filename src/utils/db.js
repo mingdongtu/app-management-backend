@@ -1,5 +1,5 @@
 // 建立数据库连接
-const config = require('./../../config')
+const config = require('../../config')
 const dataBaseConfig = config.database
 const mysql = require('mysql2');
 // 建立数据库

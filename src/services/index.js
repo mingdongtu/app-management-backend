@@ -1,5 +1,5 @@
 //业务层代码
-const infoModel = require('./../models/index')
+const infoModel = require('../models/index')
 const send = require("koa-send");
 const info = {
       async getUserData(data){
