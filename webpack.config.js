@@ -23,21 +23,21 @@ module.exports = {
         path: path.resolve(__dirname,'dist'), //输出路径
         filename: 'js/index.js'             // 输出项目根目录
     },
-    node: {
-      fs: 'empty',
-      net:'empty',
-      tls:'empty',
-    },
+    // node: {
+    //   fs: 'empty',
+    //   net:'empty',
+    //   tls:'empty',
+    // },
     module: {
-        loaders: [{
+      rules: [{
             test: /\.js$/,
             exclude: /node_modules/,
-            use: [{
-                loader: 'babel-loader',
-                options: {
-                    presets: ['es2015', 'stage-3'] //兼容es6，并添加.babelrc
-                }
-            }]
+            use: {
+              loader: 'babel-loader',
+              options: {
+                  presets: ["env",'es2015'] //兼容es6，并添加.babelrc
+              }
+          }
 
         }]
     },
